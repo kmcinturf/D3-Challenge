@@ -148,9 +148,10 @@ d3.csv("assets/data/data.csv").then(function(smokedata, err) {
     .attr("fill", "lightblue")
     .attr("opacity", ".5")
     
-  var circleLabels = chartGroup.selectAll(null).data(smokedata).enter().append("text");
+  var circleLabels = chartGroup.selectAll(".stateText").data(smokedata).enter().append("text");
 
-    circleLabels
+    circleLabels.transition()
+      .duration(1000)
       .attr("x", function(d) {
         return xLinearScale(d[chosenXAxis]);
       })
@@ -163,7 +164,9 @@ d3.csv("assets/data/data.csv").then(function(smokedata, err) {
       .attr("font-family", "sans-serif")
       .attr("font-size", "10px")
       .attr("text-anchor", "middle")
-      .attr("fill", "darkgray");
+      .attr("fill", "darkgray")
+      .attr("class", "stateText");
+      
     
     
     
@@ -226,9 +229,10 @@ d3.csv("assets/data/data.csv").then(function(smokedata, err) {
         // updates tooltips with new info
         circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
 
-        var circleLabels = chartGroup.selectAll(null).data(smokedata).enter().append("text");
+        var circleLabels = chartGroup.selectAll(".stateText");
 
-        circleLabels
+        circleLabels.transition()  
+          .duration(1000)
           .attr("x", function(d) {
             return xLinearScale(d[chosenXAxis]);
           })
@@ -238,15 +242,7 @@ d3.csv("assets/data/data.csv").then(function(smokedata, err) {
           .text(function(d) {
             return d.state;
           })
-          .attr("font-family", "sans-serif")
-          .attr("font-size", "10px")
-          .attr("text-anchor", "middle")
-          .attr("fill", "darkgray");
-        
-
-       
-
-
+ 
 
         // changes classes to change bold text
         if (chosenXAxis === "income") {
